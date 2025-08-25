@@ -15,6 +15,9 @@ public class FrmReportes extends javax.swing.JPanel {
      */
     public FrmReportes() {
         initComponents();
+        
+        
+        
     }
 
     /**
@@ -26,19 +29,179 @@ public class FrmReportes extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
+        jPanel1 = new javax.swing.JPanel();
+        jpAtrazos = new javax.swing.JPanel();
+        btnAtrazos = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblReportes = new javax.swing.JTable();
+        jpInasistencias = new javax.swing.JPanel();
+        btnInasistencias = new javax.swing.JButton();
+        jpSalidas = new javax.swing.JPanel();
+        btnSAnticipadas = new javax.swing.JButton();
+        calendarioDesde = new com.toedter.calendar.JDateChooser();
+        calendarioHasta = new com.toedter.calendar.JDateChooser();
+        jLabel2 = new javax.swing.JLabel();
+        btnSalir = new javax.swing.JButton();
+        btnGestionUsuarios = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+
+        setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jPanel1.setBackground(new java.awt.Color(233, 233, 233));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jpAtrazos.setBackground(new java.awt.Color(255, 255, 255));
+        jpAtrazos.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        btnAtrazos.setBackground(new java.awt.Color(37, 99, 235));
+        btnAtrazos.setFont(new java.awt.Font("Roboto", 1, 16)); // NOI18N
+        btnAtrazos.setForeground(new java.awt.Color(255, 255, 255));
+        btnAtrazos.setText("Atrazos");
+        btnAtrazos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAtrazosActionPerformed(evt);
+            }
+        });
+        jpAtrazos.add(btnAtrazos, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, 150, 40));
+
+        jPanel1.add(jpAtrazos, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 20, 170, 140));
+
+        tblReportes.setBackground(new java.awt.Color(255, 255, 255));
+        tblReportes.setFont(new java.awt.Font("Cascadia Mono", 0, 14)); // NOI18N
+        tblReportes.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "NOMBRE", "FECHA", "HORA", "TIPO DE EVENTO"
+            }
+        ));
+        tblReportes.setMinimumSize(null);
+        jScrollPane1.setViewportView(tblReportes);
+
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, 940, 330));
+
+        jpInasistencias.setBackground(new java.awt.Color(255, 255, 255));
+        jpInasistencias.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        btnInasistencias.setBackground(new java.awt.Color(37, 99, 235));
+        btnInasistencias.setFont(new java.awt.Font("Roboto", 1, 16)); // NOI18N
+        btnInasistencias.setForeground(new java.awt.Color(255, 255, 255));
+        btnInasistencias.setText("Inasistencias");
+        btnInasistencias.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnInasistenciasActionPerformed(evt);
+            }
+        });
+        jpInasistencias.add(btnInasistencias, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, 180, 40));
+
+        jPanel1.add(jpInasistencias, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 20, 200, 140));
+
+        jpSalidas.setBackground(new java.awt.Color(255, 255, 255));
+        jpSalidas.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        btnSAnticipadas.setBackground(new java.awt.Color(37, 99, 235));
+        btnSAnticipadas.setFont(new java.awt.Font("Roboto", 1, 16)); // NOI18N
+        btnSAnticipadas.setForeground(new java.awt.Color(255, 255, 255));
+        btnSAnticipadas.setText("Salidas Anticipadas");
+        btnSAnticipadas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSAnticipadasActionPerformed(evt);
+            }
+        });
+        jpSalidas.add(btnSAnticipadas, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, 180, 40));
+
+        jPanel1.add(jpSalidas, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 20, 200, 140));
+
+        calendarioDesde.setBackground(new java.awt.Color(255, 255, 255));
+        calendarioDesde.setFont(new java.awt.Font("Cascadia Mono", 1, 12)); // NOI18N
+        jPanel1.add(calendarioDesde, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, 190, -1));
+
+        calendarioHasta.setBackground(new java.awt.Color(255, 255, 255));
+        calendarioHasta.setFont(new java.awt.Font("Cascadia Mono", 1, 12)); // NOI18N
+        jPanel1.add(calendarioHasta, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, 190, -1));
+
+        jLabel2.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(102, 102, 102));
+        jLabel2.setText("Hasta");
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, -1, -1));
+
+        btnSalir.setBackground(new java.awt.Color(255, 66, 69));
+        btnSalir.setFont(new java.awt.Font("Roboto", 1, 16)); // NOI18N
+        btnSalir.setForeground(new java.awt.Color(255, 255, 255));
+        btnSalir.setText("Salir");
+        btnSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalirActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnSalir, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 20, 100, 40));
+
+        btnGestionUsuarios.setBackground(new java.awt.Color(37, 99, 235));
+        btnGestionUsuarios.setFont(new java.awt.Font("Roboto", 1, 16)); // NOI18N
+        btnGestionUsuarios.setForeground(new java.awt.Color(255, 255, 255));
+        btnGestionUsuarios.setText("Gestión de usuarios");
+        btnGestionUsuarios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGestionUsuariosActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnGestionUsuarios, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 530, 220, 40));
+
+        jLabel3.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(102, 102, 102));
+        jLabel3.setText("Selecionar fecha");
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 20, -1, -1));
+
+        jLabel4.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(102, 102, 102));
+        jLabel4.setText("Désde");
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, -1, -1));
+
+        add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1010, 600));
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnAtrazosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtrazosActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnAtrazosActionPerformed
+
+    private void btnSAnticipadasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSAnticipadasActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnSAnticipadasActionPerformed
+
+    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnSalirActionPerformed
+
+    private void btnGestionUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGestionUsuariosActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnGestionUsuariosActionPerformed
+
+    private void btnInasistenciasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInasistenciasActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnInasistenciasActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAtrazos;
+    private javax.swing.JButton btnGestionUsuarios;
+    private javax.swing.JButton btnInasistencias;
+    private javax.swing.JButton btnSAnticipadas;
+    private javax.swing.JButton btnSalir;
+    private com.toedter.calendar.JDateChooser calendarioDesde;
+    private com.toedter.calendar.JDateChooser calendarioHasta;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JPanel jpAtrazos;
+    private javax.swing.JPanel jpInasistencias;
+    private javax.swing.JPanel jpSalidas;
+    private javax.swing.JTable tblReportes;
     // End of variables declaration//GEN-END:variables
 }

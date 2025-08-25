@@ -10,4 +10,85 @@
         <maven.compiler.release>24</maven.compiler.release>
         <exec.mainClass>integracion.controlasistenciados.ControlAsistenciaDos</exec.mainClass>
     </properties>
+    
+    <dependencies>
+  <!-- Look & Feel moderno -->
+  <dependency>
+    <groupId>com.formdev</groupId>
+    <artifactId>flatlaf</artifactId>
+    <version>3.5.4</version>
+  </dependency>
+
+  <!-- Temas extra para FlatLaf (Material, IntelliJ, etc.) -->
+  <dependency>
+    <groupId>com.formdev</groupId>
+    <artifactId>flatlaf-intellij-themes</artifactId>
+    <version>3.5.4</version>
+  </dependency>
+
+  <!-- Selector de fechas (JDateChooser) -->
+  <dependency>
+    <groupId>com.toedter</groupId>
+    <artifactId>jcalendar</artifactId>
+    <version>1.4</version>
+  </dependency>
+
+  <!-- Driver JDBC de MySQL -->
+  <dependency>
+  <groupId>com.mysql</groupId>
+  <artifactId>mysql-connector-j</artifactId>
+  <version>8.4.0</version>
+  </dependency>
+
+
+  <!-- Opcional pero MUY recomendado: pool de conexiones -->
+  <dependency>
+    <groupId>com.zaxxer</groupId>
+    <artifactId>HikariCP</artifactId>
+    <version>5.1.0</version>
+  </dependency>
+
+  <!-- Opcional: BCrypt para contraseñas -->
+  <dependency>
+    <groupId>org.mindrot</groupId>
+    <artifactId>jbcrypt</artifactId>
+    <version>0.4</version>
+  </dependency>
+        <dependency>
+            <groupId>org.netbeans.external</groupId>
+            <artifactId>AbsoluteLayout</artifactId>
+            <version>RELEASE260</version>
+        </dependency>
+    </dependencies>
+
+<build>
+  <plugins>
+    <!-- Ejecutar con: mvn exec:java -->
+    <plugin>
+      <groupId>org.codehaus.mojo</groupId>
+      <artifactId>exec-maven-plugin</artifactId>
+      <version>3.3.0</version>
+      <configuration>
+        <mainClass>integracion.controlasistenciados.ControlAsistenciaDos</mainClass>
+      </configuration>
+    </plugin>
+
+    <!-- Empaquetar un JAR con manifest apuntando al main -->
+    <plugin>
+      <artifactId>maven-jar-plugin</artifactId>
+      <version>3.3.0</version>
+      <configuration>
+        <archive>
+          <manifest>
+            <addClasspath>true</addClasspath>
+            <classpathPrefix>lib/</classpathPrefix>
+            <mainClass>integracion.controlasistenciados.ControlAsistenciaDos</mainClass>
+          </manifest>
+        </archive>
+      </configuration>
+    </plugin>
+  </plugins>
+</build>
+
+
 </project>

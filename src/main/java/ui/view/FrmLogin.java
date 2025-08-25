@@ -17,6 +17,10 @@ public class FrmLogin extends javax.swing.JFrame {
      */
     public FrmLogin() {
         initComponents();
+        setLocationRelativeTo(null);
+        setResizable(false);
+        
+        
     }
 
     /**
@@ -28,21 +32,98 @@ public class FrmLogin extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        jPanel2 = new javax.swing.JPanel();
+        jPanel1 = new javax.swing.JPanel();
+        txtCorreo = new javax.swing.JTextField();
+        btnIngresar1 = new javax.swing.JButton();
+        lblPersonal1 = new javax.swing.JLabel();
+        PassUsuario = new javax.swing.JPasswordField();
+        btnAdministrador = new javax.swing.JButton();
+        lblAdm = new javax.swing.JLabel();
+        lblTitulo = new javax.swing.JLabel();
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jPanel2.setBackground(new java.awt.Color(233, 233, 233));
+        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        txtCorreo.setBackground(new java.awt.Color(233, 233, 233));
+        txtCorreo.setFont(new java.awt.Font("Helvetica Neue", 0, 14)); // NOI18N
+        txtCorreo.setForeground(new java.awt.Color(153, 153, 153));
+        txtCorreo.setText("Ingresa tu correo");
+        txtCorreo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCorreoActionPerformed(evt);
+            }
+        });
+        jPanel1.add(txtCorreo, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 110, 300, 30));
+
+        btnIngresar1.setBackground(new java.awt.Color(37, 99, 235));
+        btnIngresar1.setFont(new java.awt.Font("Roboto", 1, 16)); // NOI18N
+        btnIngresar1.setForeground(new java.awt.Color(255, 255, 255));
+        btnIngresar1.setText("Ingresar");
+        btnIngresar1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnIngresar1ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnIngresar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 210, 150, 40));
+
+        lblPersonal1.setBackground(new java.awt.Color(51, 51, 51));
+        lblPersonal1.setFont(new java.awt.Font("Roboto", 1, 20)); // NOI18N
+        lblPersonal1.setForeground(new java.awt.Color(102, 102, 102));
+        lblPersonal1.setText("Inicio de sessión personal");
+        jPanel1.add(lblPersonal1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 60, -1, -1));
+
+        PassUsuario.setBackground(new java.awt.Color(233, 233, 233));
+        PassUsuario.setText("Ingresa tu pass");
+        jPanel1.add(PassUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 160, 300, 30));
+
+        jPanel2.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 100, 360, 310));
+
+        btnAdministrador.setBackground(new java.awt.Color(37, 99, 235));
+        btnAdministrador.setFont(new java.awt.Font("Roboto", 1, 16)); // NOI18N
+        btnAdministrador.setForeground(new java.awt.Color(255, 255, 255));
+        btnAdministrador.setText("Administrador");
+        btnAdministrador.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAdministradorActionPerformed(evt);
+            }
+        });
+        jPanel2.add(btnAdministrador, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 470, 150, 40));
+
+        lblAdm.setBackground(new java.awt.Color(51, 51, 51));
+        lblAdm.setFont(new java.awt.Font("Roboto", 1, 20)); // NOI18N
+        lblAdm.setForeground(new java.awt.Color(102, 102, 102));
+        lblAdm.setText("Ingreso administradores");
+        jPanel2.add(lblAdm, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 430, -1, -1));
+
+        lblTitulo.setBackground(new java.awt.Color(51, 51, 51));
+        lblTitulo.setFont(new java.awt.Font("Roboto", 1, 24)); // NOI18N
+        lblTitulo.setForeground(new java.awt.Color(102, 102, 102));
+        lblTitulo.setText("Sistema de control asistencia");
+        jPanel2.add(lblTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 250, -1, -1));
+
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1010, 610));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnAdministradorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdministradorActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnAdministradorActionPerformed
+
+    private void txtCorreoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCorreoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCorreoActionPerformed
+
+    private void btnIngresar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresar1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnIngresar1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -70,5 +151,14 @@ public class FrmLogin extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPasswordField PassUsuario;
+    private javax.swing.JButton btnAdministrador;
+    private javax.swing.JButton btnIngresar1;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JLabel lblAdm;
+    private javax.swing.JLabel lblPersonal1;
+    private javax.swing.JLabel lblTitulo;
+    private javax.swing.JTextField txtCorreo;
     // End of variables declaration//GEN-END:variables
 }
