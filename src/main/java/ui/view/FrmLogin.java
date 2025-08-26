@@ -4,23 +4,83 @@
  */
 package ui.view;
 
+import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatMaterialLighterIJTheme;
+import domain.Usuario;
+import java.awt.Color;
+import java.util.Arrays;
+import javax.swing.JOptionPane;
+import ui.controller.AsistenciaController;
+import ui.controller.UsuarioController;
+
 /**
  *
  * @author leandrofuentesvega
  */
 public class FrmLogin extends javax.swing.JFrame {
-    
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(FrmLogin.class.getName());
+
+    private UsuarioController controller;
+    private AsistenciaController asistencia;
 
     /**
      * Creates new form FrmLogin
      */
-    public FrmLogin() {
+    public FrmLogin(UsuarioController controller, AsistenciaController asistencia) {
         initComponents();
         setLocationRelativeTo(null);
         setResizable(false);
-        
-        
+        this.controller = controller;
+        this.asistencia = asistencia;
+        disenioBotones();
+
+    }
+
+    public void disenioBotones() {
+        btnAdministrador.putClientProperty("JButton.buttonType", "roundRect");
+        btnAdministrador.setForeground(Color.WHITE);
+        btnIngresar1.putClientProperty("JButton.buttonType", "roundRect");
+        btnIngresar1.setForeground(Color.WHITE);
+
+    }
+
+    public void ingresarLogin() {
+        String email = txtCorreo.getText();
+        char[] pass = PassUsuario.getPassword();
+
+        if (email.isEmpty() || pass.length == 0) {
+            JOptionPane.showMessageDialog(null, "Debe ingresar contraseña y usuario", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        String contrasenia = new String(pass);
+        Arrays.fill(pass, ' ');
+
+        try {
+            // Llamar al controller de usuarios
+
+            // Intentar login
+            Usuario usuario = controller.login(email, contrasenia);
+
+            if (usuario != null) {
+                // Usuario validado
+                //JOptionPane.showMessageDialog(this, "Bienvenido " + usuario.getNombre());
+
+                dlgAsistencia asistencia = new dlgAsistencia(this, true, usuario.getId(), this.asistencia);
+
+                asistencia.setVisible(true);
+
+            } else {
+                JOptionPane.showMessageDialog(this, "Usuario o contraseña incorrectos", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Error al validar usuario", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    private void abrirAsistencia(Usuario usuario) {
+        dlgAsistencia dlg = new dlgAsistencia(this, true, usuario.getId(), asistencia);
+        dlg.setVisible(true);
     }
 
     /**
@@ -115,6 +175,9 @@ public class FrmLogin extends javax.swing.JFrame {
 
     private void btnAdministradorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdministradorActionPerformed
         // TODO add your handling code here:
+        FrmReportes reportes = new FrmReportes(asistencia);
+        
+        reportes.setVisible(true);
     }//GEN-LAST:event_btnAdministradorActionPerformed
 
     private void txtCorreoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCorreoActionPerformed
@@ -123,6 +186,7 @@ public class FrmLogin extends javax.swing.JFrame {
 
     private void btnIngresar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresar1ActionPerformed
         // TODO add your handling code here:
+        ingresarLogin();
     }//GEN-LAST:event_btnIngresar1ActionPerformed
 
     /**
@@ -134,20 +198,21 @@ public class FrmLogin extends javax.swing.JFrame {
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
+         FlatMaterialLighterIJTheme.setup();
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if ("windows".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
             }
         } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
-            logger.log(java.util.logging.Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Error al aplicar el LookAndFeel: " + ex.getMessage());
         }
+
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new FrmLogin().setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

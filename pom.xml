@@ -7,8 +7,8 @@
     <packaging>jar</packaging>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.release>24</maven.compiler.release>
-        <exec.mainClass>integracion.controlasistenciados.ControlAsistenciaDos</exec.mainClass>
+        <maven.compiler.release>21</maven.compiler.release>
+        <exec.mainClass>app.App</exec.mainClass>
     </properties>
     
     <dependencies>
@@ -82,7 +82,7 @@
           <manifest>
             <addClasspath>true</addClasspath>
             <classpathPrefix>lib/</classpathPrefix>
-            <mainClass>integracion.controlasistenciados.ControlAsistenciaDos</mainClass>
+            <mainClass>app.App</mainClass>
           </manifest>
         </archive>
       </configuration>

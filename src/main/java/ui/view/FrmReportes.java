@@ -4,20 +4,64 @@
  */
 package ui.view;
 
+import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatMaterialLighterIJTheme;
+import domain.Asistencia;
+import java.awt.Color;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import service.AsistenciaService;
+import ui.controller.AsistenciaController;
+
 /**
  *
  * @author leandrofuentesvega
  */
-public class FrmReportes extends javax.swing.JPanel {
+public class FrmReportes extends javax.swing.JFrame {
 
-    /**
-     * Creates new form FrmReportes
-     */
-    public FrmReportes() {
+    private AsistenciaController controller;
+
+    public FrmReportes(AsistenciaController controller) {
         initComponents();
-        
-        
-        
+        pack();
+        setLocationRelativeTo(null);
+        setResizable(false);
+        this.controller = controller;
+        disenioBotones();
+
+    }
+
+    public void disenioBotones() {
+        btnAtrazos.putClientProperty("JButton.buttonType", "roundRect");
+        btnAtrazos.setForeground(Color.WHITE);
+        btnGestionUsuarios.putClientProperty("JButton.buttonType", "roundRect");
+        btnGestionUsuarios.setForeground(Color.WHITE);
+        btnInasistencias.putClientProperty("JButton.buttonType", "roundRect");
+        btnInasistencias.setForeground(Color.WHITE);
+        btnSAnticipadas.putClientProperty("JButton.buttonType", "roundRect");
+        btnSAnticipadas.setForeground(Color.WHITE);
+        btnSalir.putClientProperty("JButton.buttonType", "roundRect");
+        btnSalir.setForeground(Color.WHITE);
+
+    }
+
+    // Método para llenar la JTable
+    private void mostrarEnTabla(List<Asistencia> lista) {
+        DefaultTableModel model = (DefaultTableModel) tblReportes.getModel();
+        model.setRowCount(0); // Limpiar la tabla antes de agregar filas
+        if (lista != null) {
+            for (Asistencia a : lista) {
+                model.addRow(new Object[]{
+                    a.getUsuario().getNombre(), // va en NOMBRE
+                    a.getFecha(), // va en FECHA
+                    a.getHora(), // va en HORA
+                    a.getTipo() // va en TIPO DE EVENTO
+                });
+            }
+        }
     }
 
     /**
@@ -46,7 +90,7 @@ public class FrmReportes extends javax.swing.JPanel {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
 
-        setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(233, 233, 233));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -162,19 +206,55 @@ public class FrmReportes extends javax.swing.JPanel {
         jLabel4.setText("Désde");
         jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, -1, -1));
 
-        add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1010, 600));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1010, 600));
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAtrazosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtrazosActionPerformed
         // TODO add your handling code here:
+        // Obtener fechas desde los JDateChooser
+        Date desde = calendarioDesde.getDate();
+        Date hasta = calendarioHasta.getDate();
+
+        if (desde == null || hasta == null) {
+            JOptionPane.showMessageDialog(this, "Debe seleccionar ambas fechas");
+            return;
+        }
+
+        // Convertir Date a LocalDate
+        LocalDate fechaDesde = desde.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        LocalDate fechaHasta = hasta.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+
+        // Llamar al controller para obtener atrasos
+        List<Asistencia> atrasos = controller.obtenerAtrasos(fechaDesde, fechaHasta);
+
+        // Mostrar los resultados en la JTable
+        mostrarEnTabla(atrasos);
     }//GEN-LAST:event_btnAtrazosActionPerformed
 
     private void btnSAnticipadasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSAnticipadasActionPerformed
         // TODO add your handling code here:
+        Date desde = calendarioDesde.getDate();
+        Date hasta = calendarioHasta.getDate();
+
+        if (desde == null || hasta == null) {
+            JOptionPane.showMessageDialog(this, "Debes seleccionar ambas fechas");
+            return;
+        }
+
+        // Convertir Date a LocalDate
+        LocalDate fechaDesde = desde.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        LocalDate fechaHasta = hasta.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+
+        // Llamar al controller para obtener atrasos
+        List<Asistencia> anticipadas = controller.obtenerSalidasAnticipadas(fechaDesde, fechaHasta);
+
+        // Mostrar los resultados en la JTable
+        mostrarEnTabla(anticipadas);
     }//GEN-LAST:event_btnSAnticipadasActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
         // TODO add your handling code here:
+        this.dispose();
     }//GEN-LAST:event_btnSalirActionPerformed
 
     private void btnGestionUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGestionUsuariosActionPerformed
@@ -183,6 +263,21 @@ public class FrmReportes extends javax.swing.JPanel {
 
     private void btnInasistenciasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInasistenciasActionPerformed
         // TODO add your handling code here:
+        Date desde = calendarioDesde.getDate();
+        Date hasta = calendarioHasta.getDate();
+
+        if (desde == null || hasta == null) {
+            JOptionPane.showMessageDialog(this, "Debes seleccionar ambas fechas");
+            return;
+        }
+
+        // Convertir Date a LocalDate
+        LocalDate fechaDesde = desde.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        LocalDate fechaHasta = hasta.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+
+        List<Asistencia> inasistencia = controller.obtenerInasistencias(fechaDesde, fechaHasta);
+
+        mostrarEnTabla(inasistencia);
     }//GEN-LAST:event_btnInasistenciasActionPerformed
 
 
