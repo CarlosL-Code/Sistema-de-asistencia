@@ -259,6 +259,8 @@ public class FrmReportes extends javax.swing.JFrame {
 
     private void btnGestionUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGestionUsuariosActionPerformed
         // TODO add your handling code here:
+        FrmGestorUsuarios usuario = new FrmGestorUsuarios();
+        usuario.setVisible(true);
     }//GEN-LAST:event_btnGestionUsuariosActionPerformed
 
     private void btnInasistenciasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInasistenciasActionPerformed
