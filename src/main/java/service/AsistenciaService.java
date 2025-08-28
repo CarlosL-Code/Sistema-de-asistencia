@@ -1,6 +1,7 @@
 package service;
 
 import domain.Asistencia;
+import domain.TipoEvento;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
@@ -40,7 +41,7 @@ public class AsistenciaService implements IAsistenciaService {
     @Override
     public List<Asistencia> obtenerAtrasos(LocalDate desde, LocalDate hasta) throws SQLException {
         return obtenerReporte(desde, hasta).stream()
-                .filter(a -> "ATRASO".equals(a.getTipo()))
+                .filter(a -> TipoEvento.ATRASO.equals(a.getTipo()))
                 .collect(Collectors.toList());
     }
 
@@ -48,7 +49,7 @@ public class AsistenciaService implements IAsistenciaService {
     @Override
     public List<Asistencia> obtenerSalidasAnticipadas(LocalDate desde, LocalDate hasta) throws SQLException {
         return obtenerReporte(desde, hasta).stream()
-                .filter(a -> "SALIDA ANTICIPADA".equals(a.getTipo()))
+                .filter(a -> TipoEvento.SALIDA_ANTICIPADA.equals(a.getTipo()))
                 .collect(Collectors.toList());
     }
 
@@ -56,7 +57,7 @@ public class AsistenciaService implements IAsistenciaService {
     @Override
     public List<Asistencia> obtenerInasistencias(LocalDate desde, LocalDate hasta) throws SQLException {
         return obtenerReporte(desde, hasta).stream()
-                .filter(a -> "INASISTENCIA".equals(a.getTipo()))
+                .filter(a -> TipoEvento.INASISTENCIA.equals(a.getTipo()))
                 .collect(Collectors.toList());
     }
 }

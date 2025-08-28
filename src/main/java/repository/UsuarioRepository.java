@@ -80,42 +80,46 @@ public class UsuarioRepository {
         }
     }
 
-    // OBTENER TODOS LOS USUARIOS
-    public List<Usuario> obtenerTodos() throws SQLException {
-        List<Usuario> lista = new ArrayList<>();
-        String sql = "SELECT * FROM usuario";
-        try (Connection conn = conexion.getConnection(); PreparedStatement ps = conn.prepareStatement(sql); ResultSet rs = ps.executeQuery()) {
-            while (rs.next()) {
-                lista.add(new Usuario(
-                        rs.getInt("ID_usuario"),
+  // OBTENER TODOS LOS USUARIOS
+public List<Usuario> obtenerTodos() throws SQLException {
+    List<Usuario> lista = new ArrayList<>();
+    String sql = "SELECT * FROM usuario";
+    try (Connection conn = conexion.getConnection(); 
+         PreparedStatement ps = conn.prepareStatement(sql); 
+         ResultSet rs = ps.executeQuery()) {
+        while (rs.next()) {
+            lista.add(new Usuario(
+                    rs.getInt("id_usuario"),
+                    rs.getString("nombre"),
+                    rs.getString("email"),
+                    rs.getString("pass"),
+                    rs.getString("tipo_usuario")
+            ));
+        }
+    }
+    return lista;
+}
+
+// BUSCAR USUARIO POR ID
+public Usuario buscarPorId(int idUsuario) throws SQLException {
+    String sql = "SELECT * FROM usuario WHERE id_usuario=?";
+    try (Connection conn = conexion.getConnection(); 
+         PreparedStatement ps = conn.prepareStatement(sql)) {
+        ps.setInt(1, idUsuario);
+        try (ResultSet rs = ps.executeQuery()) {
+            if (rs.next()) {
+                return new Usuario(
+                        rs.getInt("id_usuario"),
                         rs.getString("nombre"),
                         rs.getString("email"),
                         rs.getString("pass"),
-                        rs.getString("tipoDeUsuario")
-                ));
+                        rs.getString("tipo_usuario")
+                );
+            } else {
+                return null;
             }
         }
-        return lista;
     }
+}
 
-    // BUSCAR USUARIO POR ID
-    public Usuario buscarPorId(int idUsuario) throws SQLException {
-        String sql = "SELECT * FROM usuario WHERE ID_usuario=?";
-        try (Connection conn = conexion.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
-            ps.setInt(1, idUsuario);
-            try (ResultSet rs = ps.executeQuery()) {
-                if (rs.next()) {
-                    return new Usuario(
-                            rs.getInt("ID_usuario"),
-                            rs.getString("nombre"),
-                            rs.getString("email"),
-                            rs.getString("pass"),
-                            rs.getString("tipoDeUsuario")
-                    );
-                } else {
-                    return null;
-                }
-            }
-        }
-    }
 }

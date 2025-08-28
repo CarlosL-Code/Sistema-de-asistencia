@@ -1,8 +1,8 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
- */
 package ui.view;
+
+import domain.Usuario;
+import javax.swing.JOptionPane;
+import ui.controller.UsuarioController;
 
 /**
  *
@@ -10,14 +10,44 @@ package ui.view;
  */
 public class DlgUsuario extends javax.swing.JDialog {
 
+    Usuario usuario = new Usuario();
+    private UsuarioController user;
+
     /**
      * Creates new form DlgUsuario
      */
-    public DlgUsuario(java.awt.Frame parent, boolean modal) {
+    public DlgUsuario(java.awt.Frame parent, boolean modal, UsuarioController user) {
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(null);
         setResizable(modal);
+        this.user = user;
+    }
+
+    public void crearUsuario() {
+        String rut = txtRut.getText();
+        String nombre = txtNombre.getText();
+        String email = txtxEmail.getText();
+        String pass = txtPass.getText();
+
+        if (rut.isEmpty() || nombre.isEmpty() || email.isEmpty() || pass.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Los Campos no pueden estar vacios", "WARNING", JOptionPane.WARNING_MESSAGE);
+        } else {
+
+            Usuario existente = user.buscarPorEmail(email);
+            if(existente != null) {
+                JOptionPane.showMessageDialog(this, "El correo ya está registrado", "ERROR", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+          
+            usuario.setNombre(nombre);
+            usuario.setEmail(email);
+            usuario.setPass(pass);
+            usuario.setTipoUsuario("user");
+
+            user.crearUsuario(nombre, email, pass, pass);
+        }
     }
 
     /**
@@ -30,38 +60,48 @@ public class DlgUsuario extends javax.swing.JDialog {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
-        jTextField4 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        jPanel2 = new javax.swing.JPanel();
+        txtRut = new javax.swing.JTextField();
+        txtNombre = new javax.swing.JTextField();
+        txtxEmail = new javax.swing.JTextField();
+        txtPass = new javax.swing.JTextField();
+        btnGuardar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        jPanel1.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 400, 420, 50));
 
-        jTextField2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField2ActionPerformed(evt);
-            }
-        });
-        jPanel1.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 140, 420, 50));
-        jPanel1.add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 230, 420, 50));
-        jPanel1.add(jTextField4, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 320, 420, 50));
+        jPanel2.setBackground(new java.awt.Color(204, 204, 204));
+        jPanel2.setForeground(new java.awt.Color(0, 0, 0));
+        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jButton1.setText("guardar");
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 500, 420, 50));
+        txtRut.setBackground(new java.awt.Color(255, 255, 255));
+        txtRut.setForeground(new java.awt.Color(0, 0, 0));
+        jPanel2.add(txtRut, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 60, 420, 50));
+
+        txtNombre.setBackground(new java.awt.Color(255, 255, 255));
+        txtNombre.setForeground(new java.awt.Color(0, 0, 0));
+        jPanel2.add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 150, 420, 50));
+
+        txtxEmail.setBackground(new java.awt.Color(255, 255, 255));
+        txtxEmail.setForeground(new java.awt.Color(0, 0, 0));
+        jPanel2.add(txtxEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 240, 420, 50));
+
+        txtPass.setBackground(new java.awt.Color(255, 255, 255));
+        txtPass.setForeground(new java.awt.Color(0, 0, 0));
+        jPanel2.add(txtPass, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 320, 420, 50));
+
+        btnGuardar.setText("guardar");
+        jPanel2.add(btnGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 420, 420, 50));
+
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 50, 580, 530));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 660, 630));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -91,26 +131,15 @@ public class DlgUsuario extends javax.swing.JDialog {
         //</editor-fold>
 
         /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                DlgUsuario dialog = new DlgUsuario(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnGuardar;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JTextField txtNombre;
+    private javax.swing.JTextField txtPass;
+    private javax.swing.JTextField txtRut;
+    private javax.swing.JTextField txtxEmail;
     // End of variables declaration//GEN-END:variables
 }

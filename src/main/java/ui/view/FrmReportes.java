@@ -15,13 +15,16 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import service.AsistenciaService;
 import ui.controller.AsistenciaController;
+import ui.controller.UsuarioController;
 
 /**
  *
  * @author leandrofuentesvega
  */
+
 public class FrmReportes extends javax.swing.JFrame {
 
+    private UsuarioController user;
     private AsistenciaController controller;
 
     public FrmReportes(AsistenciaController controller) {
@@ -52,13 +55,14 @@ public class FrmReportes extends javax.swing.JFrame {
     private void mostrarEnTabla(List<Asistencia> lista) {
         DefaultTableModel model = (DefaultTableModel) tblReportes.getModel();
         model.setRowCount(0); // Limpiar la tabla antes de agregar filas
+
         if (lista != null) {
             for (Asistencia a : lista) {
                 model.addRow(new Object[]{
-                    a.getUsuario().getNombre(), // va en NOMBRE
-                    a.getFecha(), // va en FECHA
-                    a.getHora(), // va en HORA
-                    a.getTipo() // va en TIPO DE EVENTO
+                    a.getUsuario().getNombre(), // NOMBRE
+                    a.getFecha(), // FECHA
+                    a.getHora(), // HORA
+                    a.getTipo().name() // TIPO DE EVENTO como texto (ENTRADA, ATRASO, SALIDA_ANTICIPADA, etc.)
                 });
             }
         }
@@ -259,7 +263,7 @@ public class FrmReportes extends javax.swing.JFrame {
 
     private void btnGestionUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGestionUsuariosActionPerformed
         // TODO add your handling code here:
-        FrmGestorUsuarios usuario = new FrmGestorUsuarios();
+        FrmGestorUsuarios usuario = new FrmGestorUsuarios(user);
         usuario.setVisible(true);
     }//GEN-LAST:event_btnGestionUsuariosActionPerformed
 

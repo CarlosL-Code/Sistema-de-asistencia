@@ -68,4 +68,8 @@ public class UsuarioService implements IUsuarioService {
         return repo.buscarPorId(id);
     }
     
+    public Usuario buscarPorEmail(String email) throws SQLException{
+        return repo.buscarPorEmail(email);
+    }
+    
 }

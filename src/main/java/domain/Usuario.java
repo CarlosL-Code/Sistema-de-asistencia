@@ -3,12 +3,13 @@ package domain;
 public class Usuario {
 
     private int id;
+ 
     private String nombre;
     private String email;
     private String pass;
     private String tipoUsuario;
 
-    public Usuario(int id, String nombre, String email, String pass, String tipoUsuario) {
+    public Usuario(int id,String nombre, String email, String pass, String tipoUsuario) {
         this.id = id;
         this.nombre = nombre;
         this.email = email;
@@ -27,6 +28,7 @@ public class Usuario {
     public void setId(int id) {
         this.id = id;
     }
+
 
     public String getNombre() {
         return nombre;

@@ -32,4 +32,7 @@ public interface IUsuarioService {
     // OBTENER TODOS LOS USUARIOS
     List<Usuario> obtenerTodos() throws SQLException;
     
+    // Obtener datos porEmail
+    Usuario buscarPorEmail (String email) throws SQLException;
+    
 }

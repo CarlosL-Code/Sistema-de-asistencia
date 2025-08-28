@@ -16,6 +16,7 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import config.ConexionDb;
+import domain.TipoEvento;
 
 public class AsistenciaRepository {
 
@@ -55,7 +56,7 @@ public class AsistenciaRepository {
                 + "    WHERE r.accion = 'ENTRADA' AND TIME(r.ts) > '09:30:00' "
                 + "      AND DATE(r.ts) BETWEEN ? AND ? AND u.tipoDeUsuario = 'usuario' "
                 + "    UNION ALL "
-                + "    SELECT u.nombre AS nombre, DATE(r.ts) AS fecha, TIME(r.ts) AS hora, 'SALIDA ANTICIPADA' AS tipo "
+                + "    SELECT u.nombre AS nombre, DATE(r.ts) AS fecha, TIME(r.ts) AS hora, 'SALIDA_ANTICIPADA' AS tipo "
                 + "    FROM registro_asistencia r "
                 + "    JOIN usuario u ON u.ID_usuario = r.ID_usuario "
                 + "    WHERE r.accion = 'SALIDA' AND TIME(r.ts) < '17:30:00' "
@@ -91,7 +92,7 @@ public class AsistenciaRepository {
                 Usuario usuario = new Usuario();
                 usuario.setNombre(nombre);
 
-                Asistencia asistencia = new Asistencia(usuario, fecha, hora, tipo);
+                Asistencia asistencia = new Asistencia(usuario, fecha, hora, TipoEvento.valueOf(tipo));
                 lista.add(asistencia);
             }
 

@@ -9,12 +9,12 @@ public class Asistencia {
     private Usuario usuario;   // El usuario asociado
     private LocalDate fecha;   // Fecha de la incidencia
     private LocalTime hora;    // Hora de la incidencia (puede ser null en caso de inasistencia)
-    private String tipo;       // Tipo: "ATRASO", "SALIDA ANTICIPADA" o "INASISTENCIA"
+    private TipoEvento tipo;       // Tipo: "ATRASO", "SALIDA ANTICIPADA" o "INASISTENCIA"
 
     public Asistencia() {
     }
 
-    public Asistencia(Usuario usuario, LocalDate fecha, LocalTime hora, String tipo) {
+    public Asistencia(Usuario usuario, LocalDate fecha, LocalTime hora, TipoEvento tipo) {
         this.usuario = usuario;
         this.fecha = fecha;
         this.hora = hora;
@@ -45,11 +45,11 @@ public class Asistencia {
         this.hora = hora;
     }
 
-    public String getTipo() {
+    public TipoEvento getTipo() {
         return tipo;
     }
 
-    public void setTipo(String tipo) {
+    public void setTipo(TipoEvento tipo) {
         this.tipo = tipo;
     }
 

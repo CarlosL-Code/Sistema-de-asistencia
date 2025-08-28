@@ -83,4 +83,14 @@ public class UsuarioController {
             return null;
         }
     }
+    
+    //Buscar por Email
+    public Usuario buscarPorEmail(String email){
+        try {
+            return service.buscarPorEmail(email);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 }

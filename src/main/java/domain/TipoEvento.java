@@ -8,6 +8,10 @@ package domain;
  *
  * @author leandrofuentesvega
  */
-public class TipoEvento {
-    
+public enum TipoEvento {
+    ATRASO,
+    INASISTENCIA,
+    SALIDA_ANTICIPADA,
+    INGRESO,
+    SALIDA
 }
