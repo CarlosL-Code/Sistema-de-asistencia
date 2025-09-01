@@ -19,7 +19,7 @@ public class dlgAsistencia extends javax.swing.JDialog {
         initComponents();
         setLocationRelativeTo(null);
         setResizable(false);
-        this.idUsuario = idUsuario; // guardamos el ID
+        this.idUsuario = idUsuario;
         this.controller = controller; 
     }
     

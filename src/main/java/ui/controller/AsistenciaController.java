@@ -25,7 +25,7 @@ public class AsistenciaController implements IAsistenciaService{
         }
     }
 
-    public void registrarSalida(int idUsuario) {
+    public void registrarSalida( int idUsuario) {
         try {
             service.registrarSalida(idUsuario);
         } catch (Exception e) {

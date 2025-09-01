@@ -14,6 +14,8 @@ import java.util.List;
  */
 public interface IUsuarioService {
 
+    Usuario buscarPorEmail(String email) throws SQLException;
+
     // BUSCAR USUARIO POR ID
     Usuario buscarPorId(int id) throws SQLException;
 
@@ -31,8 +33,5 @@ public interface IUsuarioService {
 
     // OBTENER TODOS LOS USUARIOS
     List<Usuario> obtenerTodos() throws SQLException;
-    
-    // Obtener datos porEmail
-    Usuario buscarPorEmail (String email) throws SQLException;
     
 }

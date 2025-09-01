@@ -175,7 +175,7 @@ public class FrmLogin extends javax.swing.JFrame {
 
     private void btnAdministradorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdministradorActionPerformed
         // TODO add your handling code here:
-        FrmReportes reportes = new FrmReportes(asistencia);
+        FrmReportes reportes = new FrmReportes(asistencia, controller);
         
         reportes.setVisible(true);
     }//GEN-LAST:event_btnAdministradorActionPerformed

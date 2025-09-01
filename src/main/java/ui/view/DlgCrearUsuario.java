@@ -8,15 +8,16 @@ import ui.controller.UsuarioController;
  *
  * @author carlo
  */
-public class DlgUsuario extends javax.swing.JDialog {
+public class DlgCrearUsuario extends javax.swing.JDialog {
 
     Usuario usuario = new Usuario();
+
     private UsuarioController user;
 
     /**
      * Creates new form DlgUsuario
      */
-    public DlgUsuario(java.awt.Frame parent, boolean modal, UsuarioController user) {
+    public DlgCrearUsuario(java.awt.Frame parent, boolean modal, UsuarioController user) {
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(null);
@@ -25,29 +26,51 @@ public class DlgUsuario extends javax.swing.JDialog {
     }
 
     public void crearUsuario() {
-        String rut = txtRut.getText();
-        String nombre = txtNombre.getText();
-        String email = txtxEmail.getText();
-        String pass = txtPass.getText();
 
-        if (rut.isEmpty() || nombre.isEmpty() || email.isEmpty() || pass.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Los Campos no pueden estar vacios", "WARNING", JOptionPane.WARNING_MESSAGE);
-        } else {
+        String nombre = txtNombre.getText().trim();
+        String email = txtxEmail.getText().trim();
+        String pass = txtPass.getText().trim();
 
-            Usuario existente = user.buscarPorEmail(email);
-            if(existente != null) {
-                JOptionPane.showMessageDialog(this, "El correo ya está registrado", "ERROR", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-
-          
-            usuario.setNombre(nombre);
-            usuario.setEmail(email);
-            usuario.setPass(pass);
-            usuario.setTipoUsuario("user");
-
-            user.crearUsuario(nombre, email, pass, pass);
+        if (nombre.isEmpty() || email.isEmpty() || pass.isEmpty()) {
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Los campos no pueden estar vacíos",
+                    "WARNING",
+                    JOptionPane.WARNING_MESSAGE
+            );
+            return;
         }
+
+        // Verificar si ya existe un usuario con ese email
+        Usuario existente = user.buscarPorEmail(email);
+        if (existente != null) {
+            JOptionPane.showMessageDialog(
+                    this,
+                    "El correo ya está registrado",
+                    "ERROR",
+                    JOptionPane.ERROR_MESSAGE
+            );
+            return;
+        }
+
+        // Crear objeto usuario
+        Usuario nuevo = new Usuario();
+        nuevo.setNombre(nombre);
+        nuevo.setEmail(email);
+        nuevo.setPass(pass);
+        nuevo.setTipoUsuario("usuario"); 
+
+        // Pasar el objeto al controlador
+        user.crearUsuario(nombre, email, pass, "usuario"); 
+
+        JOptionPane.showMessageDialog(
+                this,
+                "Usuario creado correctamente",
+                "SUCCESS",
+                JOptionPane.INFORMATION_MESSAGE
+        );
+
+        dispose(); // cerrar el diálogo
     }
 
     /**
@@ -61,7 +84,6 @@ public class DlgUsuario extends javax.swing.JDialog {
 
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
-        txtRut = new javax.swing.JTextField();
         txtNombre = new javax.swing.JTextField();
         txtxEmail = new javax.swing.JTextField();
         txtPass = new javax.swing.JTextField();
@@ -77,23 +99,24 @@ public class DlgUsuario extends javax.swing.JDialog {
         jPanel2.setForeground(new java.awt.Color(0, 0, 0));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        txtRut.setBackground(new java.awt.Color(255, 255, 255));
-        txtRut.setForeground(new java.awt.Color(0, 0, 0));
-        jPanel2.add(txtRut, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 60, 420, 50));
-
         txtNombre.setBackground(new java.awt.Color(255, 255, 255));
         txtNombre.setForeground(new java.awt.Color(0, 0, 0));
-        jPanel2.add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 150, 420, 50));
+        jPanel2.add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 60, 420, 50));
 
         txtxEmail.setBackground(new java.awt.Color(255, 255, 255));
         txtxEmail.setForeground(new java.awt.Color(0, 0, 0));
-        jPanel2.add(txtxEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 240, 420, 50));
+        jPanel2.add(txtxEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 170, 420, 50));
 
         txtPass.setBackground(new java.awt.Color(255, 255, 255));
         txtPass.setForeground(new java.awt.Color(0, 0, 0));
-        jPanel2.add(txtPass, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 320, 420, 50));
+        jPanel2.add(txtPass, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 270, 420, 50));
 
         btnGuardar.setText("guardar");
+        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarActionPerformed(evt);
+            }
+        });
         jPanel2.add(btnGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 420, 420, 50));
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 50, 580, 530));
@@ -102,6 +125,11 @@ public class DlgUsuario extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+        // TODO add your handling code here:
+        crearUsuario();
+    }//GEN-LAST:event_btnGuardarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -120,14 +148,16 @@ public class DlgUsuario extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(DlgUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DlgCrearUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(DlgUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DlgCrearUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(DlgUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DlgCrearUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(DlgUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DlgCrearUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+
         //</editor-fold>
 
         /* Create and display the dialog */
@@ -139,7 +169,6 @@ public class DlgUsuario extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JTextField txtNombre;
     private javax.swing.JTextField txtPass;
-    private javax.swing.JTextField txtRut;
     private javax.swing.JTextField txtxEmail;
     // End of variables declaration//GEN-END:variables
 }

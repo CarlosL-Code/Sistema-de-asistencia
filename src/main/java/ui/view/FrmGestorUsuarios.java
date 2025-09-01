@@ -4,8 +4,13 @@
  */
 package ui.view;
 
+import com.google.protobuf.Internal;
+import domain.Asistencia;
 import domain.Usuario;
+import java.sql.SQLException;
+import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 import ui.controller.UsuarioController;
 
 /**
@@ -13,23 +18,104 @@ import ui.controller.UsuarioController;
  * @author carlo
  */
 public class FrmGestorUsuarios extends javax.swing.JFrame {
-    
-    private UsuarioController user ;
+
+    private UsuarioController user;
+    Usuario usuario = new Usuario();
+
+    DlgEditarUsuario edit = new DlgEditarUsuario(this, true, user);
 
     /**
      * Creates new form FrmGestorUsuarios
+     *
      * @param user
      */
     public FrmGestorUsuarios(UsuarioController user) {
+        this.user = user;
+
         initComponents();
         setLocationRelativeTo(null);
         setResizable(false);
-        this.user = user;
-    }
-    
-    public void crearUsuario() {
-      
+        // Obtener usuarios y mostrar en tabla
+        List<Usuario> lista = null;
+        lista = user.obtenerTodos();
+        mostrarEnTabla(lista);
         
+        configurarBotones();
+    }
+
+    private void mostrarEnTabla(List<Usuario> listaUsuarios) {
+        DefaultTableModel model = new DefaultTableModel() {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false; // celdas no editables
+            }
+        };
+
+        model.addColumn("ID"); // columna oculta
+        model.addColumn("Nombre");
+        model.addColumn("Email");
+        model.addColumn("Pass");
+
+        tblUsuarios.setModel(model);
+
+        // Ocultar columna ID
+        tblUsuarios.getColumnModel().getColumn(0).setMinWidth(0);
+        tblUsuarios.getColumnModel().getColumn(0).setMaxWidth(0);
+        tblUsuarios.getColumnModel().getColumn(0).setWidth(0);
+        tblUsuarios.getColumnModel().getColumn(0).setPreferredWidth(0);
+
+        // Llenar la tabla con los usuarios de la lista
+        for (Usuario u : listaUsuarios) {
+            model.addRow(new Object[]{u.getId(), u.getNombre(), u.getEmail(), u.getPass()});
+        }
+    }
+
+    private void configurarBotones() {
+        // Botón Editar
+        btnEditar.addActionListener(e -> {
+            int fila = tblUsuarios.getSelectedRow();
+            if (fila >= 0) {
+                int id = (int) tblUsuarios.getValueAt(fila, 0);
+                String nombre = (String) tblUsuarios.getValueAt(fila, 1);
+                String email = (String) tblUsuarios.getValueAt(fila, 2);
+                String pass = (String) tblUsuarios.getValueAt(fila, 3);
+
+                Usuario usuarioSeleccionado = new Usuario();
+                usuarioSeleccionado.setId(id);
+                usuarioSeleccionado.setNombre(nombre);
+                usuarioSeleccionado.setEmail(email);
+                usuarioSeleccionado.setPass(pass);
+
+                DlgEditarUsuario dlg = new DlgEditarUsuario(this, true, user);
+                dlg.setUsuario(usuarioSeleccionado);
+                dlg.setVisible(true);
+            } else {
+                JOptionPane.showMessageDialog(this, "Seleccione un usuario para editar.");
+            }
+        });
+
+        // Botón Eliminar
+        btnEliminar.addActionListener(e -> {
+            int fila = tblUsuarios.getSelectedRow();
+            if (fila >= 0) {
+                int id = (int) tblUsuarios.getValueAt(fila, 0);
+
+                int confirm = JOptionPane.showConfirmDialog(
+                        this,
+                        "¿Está seguro que desea eliminar este usuario?",
+                        "Confirmar eliminación",
+                        JOptionPane.YES_NO_OPTION
+                );
+
+                if (confirm == JOptionPane.YES_OPTION) {
+                    user.eliminarUsuario(id);
+                    JOptionPane.showMessageDialog(this, "Usuario eliminado correctamente");
+                    mostrarEnTabla(user.obtenerTodos());
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "Seleccione un usuario para eliminar.");
+            }
+        });
     }
 
     /**
@@ -56,6 +142,7 @@ public class FrmGestorUsuarios extends javax.swing.JFrame {
         jPanel1.setForeground(new java.awt.Color(0, 0, 0));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        tblUsuarios.setFont(new java.awt.Font("Cascadia Mono", 1, 14)); // NOI18N
         tblUsuarios.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -64,9 +151,14 @@ public class FrmGestorUsuarios extends javax.swing.JFrame {
                 {null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "NOMBRE", "EMAIL", "PASSWORD", "TIPO DE USUARIO"
             }
         ));
+        tblUsuarios.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblUsuariosMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblUsuarios);
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, 1050, 460));
@@ -109,7 +201,7 @@ public class FrmGestorUsuarios extends javax.swing.JFrame {
 
     private void btnCrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearActionPerformed
         // TODO add your handling code here:
-        DlgUsuario usu = new DlgUsuario(this, rootPaneCheckingEnabled, user);
+        DlgCrearUsuario usu = new DlgCrearUsuario(this, true, user);
         usu.setVisible(true);
     }//GEN-LAST:event_btnCrearActionPerformed
 
@@ -117,6 +209,12 @@ public class FrmGestorUsuarios extends javax.swing.JFrame {
         // TODO add your handling code here:
         this.dispose();
     }//GEN-LAST:event_btnSalirActionPerformed
+
+    private void tblUsuariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblUsuariosMouseClicked
+        // TODO add your handling code here:
+
+
+    }//GEN-LAST:event_tblUsuariosMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

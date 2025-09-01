@@ -26,14 +26,13 @@ public class App {
 
     public static void main(String[] args) {
 
-        
-         try {
+        try {
             // Activar FlatLaf con estilo claro
             UIManager.setLookAndFeel(new FlatLightLaf());
         } catch (UnsupportedLookAndFeelException ex) {
             ex.printStackTrace(); // si falla, imprime error
         }
-         
+
         // -------------------------------
         // 1. Crear conexión
         // -------------------------------
@@ -58,11 +57,13 @@ public class App {
         AsistenciaController asistenciaController = new AsistenciaController(asistenciaService);
 
         // -------------------------------
-        // 5. Crear vista de login, pasando los controladores
+        // 5. Crear vista de login,
+        //    pasando SIEMPRE los controladores
         // -------------------------------
-        FrmLogin login = new FrmLogin(usuarioController, asistenciaController);
-        login.setVisible(true);
-        
+        java.awt.EventQueue.invokeLater(() -> {
+            FrmLogin login = new FrmLogin(usuarioController, asistenciaController);
+            login.setVisible(true);
+        });
     }
 
 }

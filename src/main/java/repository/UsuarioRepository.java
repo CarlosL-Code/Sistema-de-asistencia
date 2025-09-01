@@ -89,11 +89,11 @@ public List<Usuario> obtenerTodos() throws SQLException {
          ResultSet rs = ps.executeQuery()) {
         while (rs.next()) {
             lista.add(new Usuario(
-                    rs.getInt("id_usuario"),
+                    rs.getInt("ID_usuario"),
                     rs.getString("nombre"),
                     rs.getString("email"),
                     rs.getString("pass"),
-                    rs.getString("tipo_usuario")
+                    rs.getString("tipoDeUsuario")
             ));
         }
     }
@@ -102,14 +102,14 @@ public List<Usuario> obtenerTodos() throws SQLException {
 
 // BUSCAR USUARIO POR ID
 public Usuario buscarPorId(int idUsuario) throws SQLException {
-    String sql = "SELECT * FROM usuario WHERE id_usuario=?";
+    String sql = "SELECT * FROM usuario WHERE ID_usuario=?";
     try (Connection conn = conexion.getConnection(); 
          PreparedStatement ps = conn.prepareStatement(sql)) {
         ps.setInt(1, idUsuario);
         try (ResultSet rs = ps.executeQuery()) {
             if (rs.next()) {
                 return new Usuario(
-                        rs.getInt("id_usuario"),
+                        rs.getInt("ID_usuario"),
                         rs.getString("nombre"),
                         rs.getString("email"),
                         rs.getString("pass"),

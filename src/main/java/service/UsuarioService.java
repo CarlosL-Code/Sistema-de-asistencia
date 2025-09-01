@@ -7,7 +7,7 @@ import java.util.List;
 import repository.UsuarioRepository;
 
 
-public class UsuarioService implements IUsuarioService {
+public class UsuarioService implements IUsuarioService  {
     
     private UsuarioRepository repo;
 
@@ -39,7 +39,7 @@ public class UsuarioService implements IUsuarioService {
 
     // EDITAR USUARIO
     @Override
-    public void editarUsuario(int id, String nombre, String email, String pass, String tipoUsuario) throws SQLException {
+    public void editarUsuario(int id,String nombre, String email, String pass, String tipoUsuario) throws SQLException {
         Usuario user = new Usuario();
         user.setId(id);
         user.setNombre(nombre);
@@ -68,6 +68,7 @@ public class UsuarioService implements IUsuarioService {
         return repo.buscarPorId(id);
     }
     
+    @Override
     public Usuario buscarPorEmail(String email) throws SQLException{
         return repo.buscarPorEmail(email);
     }

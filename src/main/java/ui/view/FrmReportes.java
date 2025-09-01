@@ -27,12 +27,13 @@ public class FrmReportes extends javax.swing.JFrame {
     private UsuarioController user;
     private AsistenciaController controller;
 
-    public FrmReportes(AsistenciaController controller) {
+    public FrmReportes(AsistenciaController controller, UsuarioController user) {
+        this.controller = controller;
+        this.user = user;
         initComponents();
         pack();
         setLocationRelativeTo(null);
         setResizable(false);
-        this.controller = controller;
         disenioBotones();
 
     }
@@ -128,7 +129,6 @@ public class FrmReportes extends javax.swing.JFrame {
                 "NOMBRE", "FECHA", "HORA", "TIPO DE EVENTO"
             }
         ));
-        tblReportes.setMinimumSize(null);
         jScrollPane1.setViewportView(tblReportes);
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, 940, 330));
