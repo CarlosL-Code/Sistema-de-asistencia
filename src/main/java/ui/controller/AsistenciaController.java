@@ -1,17 +1,13 @@
 package ui.controller;
+
 import domain.Asistencia;
-import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
-import java.util.stream.Collectors;
-import service.AsistenciaService;
 import service.IAsistenciaService;
 
-public class AsistenciaController implements IAsistenciaService{
+public class AsistenciaController implements IAsistenciaService {
 
     private IAsistenciaService service;
-    
- 
 
     public AsistenciaController(IAsistenciaService service) {
         this.service = service;
@@ -25,10 +21,11 @@ public class AsistenciaController implements IAsistenciaService{
         }
     }
 
-    public void registrarSalida( int idUsuario) {
+    @Override
+    public void registrarSalida(int idUsuario) {
         try {
             service.registrarSalida(idUsuario);
-        } catch (Exception e) {
+        } catch (Exception e) {  // ATRAPA cualquier excepción, no solo SQLException
             System.err.println("Error al registrar salida: " + e.getMessage());
         }
     }

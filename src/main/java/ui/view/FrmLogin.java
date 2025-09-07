@@ -78,6 +78,11 @@ public class FrmLogin extends javax.swing.JFrame {
         }
     }
 
+    private void limpiarDatos(){
+        txtCorreo.setText("");
+        PassUsuario.setText("");
+    }
+    
     private void abrirAsistencia(Usuario usuario) {
         dlgAsistencia dlg = new dlgAsistencia(this, true, usuario.getId(), asistencia);
         dlg.setVisible(true);
@@ -186,7 +191,9 @@ public class FrmLogin extends javax.swing.JFrame {
 
     private void btnIngresar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresar1ActionPerformed
         // TODO add your handling code here:
+        
         ingresarLogin();
+        limpiarDatos();
     }//GEN-LAST:event_btnIngresar1ActionPerformed
 
     /**

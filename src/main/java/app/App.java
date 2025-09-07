@@ -1,13 +1,8 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package app;
 
 import com.formdev.flatlaf.FlatLightLaf;
+import config.AppProperties;
 import config.ConexionDb;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
 import repository.AsistenciaRepository;
 import repository.UsuarioRepository;
 import service.AsistenciaService;
@@ -18,52 +13,56 @@ import ui.controller.AsistenciaController;
 import ui.controller.UsuarioController;
 import ui.view.FrmLogin;
 
-/**
- *
- * @author leandrofuentesvega
- */
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
+
 public class App {
 
     public static void main(String[] args) {
 
+        // -------------------------------
+        // 0. Look and Feel
+        // -------------------------------
         try {
-            // Activar FlatLaf con estilo claro
             UIManager.setLookAndFeel(new FlatLightLaf());
         } catch (UnsupportedLookAndFeelException ex) {
-            ex.printStackTrace(); // si falla, imprime error
+            ex.printStackTrace();
         }
 
         // -------------------------------
-        // 1. Crear conexión
+        // 1. Cargar AppProperties
         // -------------------------------
-        ConexionDb conexion = new ConexionDb();
+        AppProperties props = new AppProperties(); // ya carga automáticamente el archivo
 
         // -------------------------------
-        // 2. Crear repositorios
+        // 2. Crear conexión
+        // -------------------------------
+        ConexionDb conexion = new ConexionDb(props);
+
+        // -------------------------------
+        // 3. Crear repositorios
         // -------------------------------
         UsuarioRepository usuarioRepo = new UsuarioRepository(conexion);
         AsistenciaRepository asistenciaRepo = new AsistenciaRepository(conexion);
 
         // -------------------------------
-        // 3. Crear servicios
+        // 4. Crear servicios
         // -------------------------------
-        IUsuarioService usuarioService = new UsuarioService(usuarioRepo);
-        IAsistenciaService asistenciaService = new AsistenciaService(asistenciaRepo);
+        IUsuarioService usuarioService = new UsuarioService(usuarioRepo); // sin props
+        IAsistenciaService asistenciaService = new AsistenciaService(asistenciaRepo, props); // con props
 
         // -------------------------------
-        // 4. Crear controladores
+        // 5. Crear controladores
         // -------------------------------
         UsuarioController usuarioController = new UsuarioController(usuarioService);
         AsistenciaController asistenciaController = new AsistenciaController(asistenciaService);
 
         // -------------------------------
-        // 5. Crear vista de login,
-        //    pasando SIEMPRE los controladores
+        // 6. Crear vista de login
         // -------------------------------
         java.awt.EventQueue.invokeLater(() -> {
             FrmLogin login = new FrmLogin(usuarioController, asistenciaController);
             login.setVisible(true);
         });
     }
-
 }

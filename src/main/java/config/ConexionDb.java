@@ -6,14 +6,19 @@ import java.sql.SQLException;
 
 public class ConexionDb {
 
-    // Timeout de conexión y lectura en milisegundos
-    private static final String URL = "jdbc:mysql://localhost:3306/sistemaAsistencia?connectTimeout=5000&socketTimeout=5000";
-    private static final String User = "root";
-    private static final String Pass = "";
+    private final String url;
+    private final String user;
+    private final String pass;
 
-    public static Connection getConnection() throws SQLException {
+    public ConexionDb(AppProperties appProperties) {
+        this.url = appProperties.getDbUrl();
+        this.user = appProperties.getDbUser();
+        this.pass = appProperties.getDbPass();
+    }
+
+    public Connection getConnection() throws SQLException {
         try {
-            Connection conn = DriverManager.getConnection(URL, User, Pass);
+            Connection conn = DriverManager.getConnection(url, user, pass);
             System.out.println("Conexión a base de datos OK");
             return conn;
         } catch (SQLException e) {

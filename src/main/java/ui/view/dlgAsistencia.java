@@ -11,6 +11,7 @@ public class dlgAsistencia extends javax.swing.JDialog {
 
     
     private AsistenciaController controller;
+    
    
     private int idUsuario;
     
@@ -39,6 +40,7 @@ public void disenioBotones() {
         jPanel1 = new javax.swing.JPanel();
         btnSalida = new javax.swing.JButton();
         btnEntrada = new javax.swing.JButton();
+        tblCerrarSeccion = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -69,6 +71,14 @@ public void disenioBotones() {
         });
         jPanel1.add(btnEntrada, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 150, 330, 70));
 
+        tblCerrarSeccion.setText("cerrar sesion");
+        tblCerrarSeccion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tblCerrarSeccionActionPerformed(evt);
+            }
+        });
+        jPanel1.add(tblCerrarSeccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 497, 160, 50));
+
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -4, 550, 610));
 
         pack();
@@ -97,6 +107,11 @@ public void disenioBotones() {
             JOptionPane.showMessageDialog(this, "Error al registrar Ingreso", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnEntradaActionPerformed
+
+    private void tblCerrarSeccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tblCerrarSeccionActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_tblCerrarSeccionActionPerformed
 
     /**
      * @param args the command line arguments
@@ -134,5 +149,6 @@ public void disenioBotones() {
     private javax.swing.JButton btnEntrada;
     private javax.swing.JButton btnSalida;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JButton tblCerrarSeccion;
     // End of variables declaration//GEN-END:variables
 }
